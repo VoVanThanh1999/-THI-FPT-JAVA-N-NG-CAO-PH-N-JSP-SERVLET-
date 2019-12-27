@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+
+</head>
+<body>
+<div th:replace="layout :: header">
+
+</div>
+<div class="quanlythanhvien">
+	<div class="container">
+		<table class="table table-primary table-hover">
+		  <thead>
+		    <tr>
+		      <th scope="col">Họ và tên</th>
+		      <th scope="col">Ngày sinh</th>
+		      <th scope="col">Địa chỉ email</th>
+		      <th scope="col">Phone</th>
+		      <th scope="col"><i class="fas fa-user-minus"></i></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="member,iter : ${members}">
+			  <td th:utext="${member.fullName}"></td>
+		      <td th:utext="${member.ngaySinh}"></td>
+		      <td th:utext="${member.email}"></td>
+		      <td th:utext="${member.phone}"></td>
+		      <td class="btn" th:data-id="${iter.index}" onclick="deleteMember()"><a class="btn btn-danger text-white" th:href="@{/api/v1/member/1}">Xóa</a></td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+	function deleteMember(){
+		window.location.href = "/quanlythanhvien";
+	}
+</script>
+</body>
+</html>

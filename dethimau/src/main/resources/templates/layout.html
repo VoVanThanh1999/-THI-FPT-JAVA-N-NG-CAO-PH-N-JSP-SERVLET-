@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:fragment="head">
+<meta charset="UTF-8" />
+<title>WEB-APP</title>
+	<link   rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link   rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		.header .container-fluid{
+		}
+		.body{
+			padding-top: 100px;
+		}
+		.quanlythanhvien{
+			margin-top: 150px;
+		}
+	
+	</style>
+</head>
+
+<body>
+
+<div th:fragment="header" class="header">
+	<div class="container-fluid">
+		<h3 class="text-center bg-primary btn col-md-12 text-white">WEB - APP</h3>
+		<button class="btn col-md-2 bg-success text-white float-right"><a class="btn text-white">Quản lý hoạt động</a></button>
+		<button class="btn col-md-2 bg-danger text-white float-right"><a class="btn text-white" href="/quanlythanhvien">Quản lý thành viên</a></button>
+		<button class="btn col-md-2 bg-secondary text-white float-right"><a class="btn text-white">Xếp hàng hoạt động</a></button>
+	</div>
+	
+</div>
+</body>
+</html>

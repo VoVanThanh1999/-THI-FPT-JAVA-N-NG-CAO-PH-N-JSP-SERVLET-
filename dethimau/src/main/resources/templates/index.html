@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+
+</head>
+<body>
+<div th:replace="layout :: header">
+
+</div>
+
+<div class="body">
+	<div class="container">
+		<div class="mr-auto" style="padding-left:300px">
+			<label for="fullName">Họ và tên</label>
+			<input name="fullName" id="fullName" class="form-control col-md-6">	
+			<label for="ngaySinh">Ngày sinh</label>
+			<input type="date" name="ngaySinh" id="ngaySinh" class="form-control col-md-6">	
+			<label for="email">Email</label>
+			<input name="email" id=email class="form-control col-md-6">	
+			<label for="phone">Số điện thoại</label>
+			<input name="phone" id="phone" class="form-control col-md-6">	
+			<button onclick="themThanhVien()" class="btn btn-primary mt-4">Thêm thành viên</button>
+		</div>
+	</div>
+</div>
+<script >
+	function themThanhVien(){
+		debugger;
+		var fullName = $("#fullName").val();
+		var ngaySinh = $("#ngaySinh").val();
+		var email = $("#email").val();
+		var phone = $("#phone").val();
+		
+		$.ajax({
+			  url:"/api/v1/member",
+		      contentType: "application/json",
+		      dataType: 'json',
+		      data : JSON.stringify({fullName:fullName, ngaySinh:ngaySinh, email:email,phone:phone}),
+		      method : "POST",
+		}).done(function() {
+			console.log('dsadsa');
+		});
+		 
+		      
+		     
+		   	
+	}
+</script>
+</body>
+
+</html>
