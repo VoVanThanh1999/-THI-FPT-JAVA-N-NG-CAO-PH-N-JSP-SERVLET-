@@ -12,9 +12,9 @@
 		<table class="table table-primary table-hover">
 		  <thead>
 		    <tr>
-		      <th scope="col">Họ và tên</th>
-		      <th scope="col">Ngày sinh</th>
-		      <th scope="col">Địa chỉ email</th>
+		      <th scope="col">HoÌ£ vaÌ€ tÃªn</th>
+		      <th scope="col">NgaÌ€y sinh</th>
+		      <th scope="col">Ä�iÌ£a chiÌ‰ email</th>
 		      <th scope="col">Phone</th>
 		      <th scope="col"><i class="fas fa-user-minus"></i></th>
 		    </tr>
@@ -25,16 +25,29 @@
 		      <td th:utext="${member.ngaySinh}"></td>
 		      <td th:utext="${member.email}"></td>
 		      <td th:utext="${member.phone}"></td>
-		      <td class="btn" th:data-id="${iter.index}" onclick="deleteMember()"><a class="btn btn-danger text-white" th:href="@{/api/v1/member/1}">Xóa</a></td>
+		      <td class="btnIndex" th:da-length="${iter.index}" th:data-id="${member.idMember}"  ><a class="btn btn-danger text-white">XoÌ�a</a></td>
+		      
+		      
 		    </tr>
 		  </tbody>
 		</table>
 	</div>
 </div>
 <script type="text/javascript">
-	function deleteMember(){
-		window.location.href = "/quanlythanhvien";
-	}
+	 $('.btnIndex').click(function(){
+		debugger;
+		var value = $(this).attr('data-id');
+		 $.ajax({
+			  method: "delete",
+			  url: "/api/v1/member/"+value,
+		})
+			  .done(function( msg ) {
+			   alert( "Data Saved: " + msg );
+		}); 
+		console.log(value);
+		
+	});
+	
 </script>
 </body>
 </html>

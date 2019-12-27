@@ -1,15 +1,21 @@
 package com.example.model;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
+
+import org.springframework.lang.NonNull;
 
 @Entity
 @Table(name="action")
@@ -20,17 +26,27 @@ public class Action {
 	@Column(name="id_action")
 	private int idAction;
 	@Column
+	@NonNull
+	@Size(max=36)
 	private String nameAction;
+	
 	private String description;
-	private String dayStart;
-	private String dayFinish;
+
+	private Date dayStart;
+
+	private Date dayFinish;
+	
 	private int numberMax;
+	
 	private int numberMin;
+	
 	private String deadlineForRegistration;
+	
 	private String status;
+	
 	private String cancellation;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	private Member member;
 
 
@@ -57,20 +73,20 @@ public class Action {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public String getDayStart() {
+	
+	public Date getDayStart() {
 		return dayStart;
 	}
 
-	public void setDayStart(String dayStart) {
+	public void setDayStart(Date dayStart) {
 		this.dayStart = dayStart;
 	}
 
-	public String getDayFinish() {
+	public Date getDayFinish() {
 		return dayFinish;
 	}
 
-	public void setDayFinish(String dayFinish) {
+	public void setDayFinish(Date dayFinish) {
 		this.dayFinish = dayFinish;
 	}
 

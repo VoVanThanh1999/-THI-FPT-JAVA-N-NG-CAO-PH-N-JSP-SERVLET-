@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+
+</head>
+<body>
+<div th:replace="layout :: header">
+
+</div>
+<div class="container" style="margin-top: 150px;">
+	<form action="#">
+		 <label for="leader">Trưởng đoàn</label>
+		 <select id="idMember" name="leader" class="form-control col-md-12">
+             <option th:each="member : ${members}"
+                            th:value="${member.idMember}"
+                            th:utext="${member.fullName}"/>
+          </select>
+          <label for="nameAction">Tên hành động</label>
+          <input id="nameAction" type="text" class="form-control col-md-12 " name="nameAction"></input>
+          <label for="description">Mô tả</label>
+          <input id="moTa" type="text" class="form-control col-md-12 " name="description"></input>
+          <label for="dayStart">Ngày bắt đầu</label>
+          <input id="dayStart" type="date" class="form-control col-md-12 " name="dayStart"></input>
+          <label for="dayFinish">Ngày kết thúc</label>
+          <input id="dayFinish" type="date" class="form-control col-md-12 " name="dayFinish"></input>
+          <label for="numberMax">Số lượng tối đa</label>
+          <input id="numberMax" type="text" class="form-control col-md-12 " name="numberMax"></input>
+           <label for="numberMin">Số lượng tối thiểu</label>
+          <input id="numberMin" type="text" class="form-control col-md-12 " name="numberMin"></input>
+          <label for="deadlineForRegistration">Hạn chót</label>
+          <input id="deadlineForRegistration" type="text" class="form-control col-md-12 " name="deadlineForRegistration"></input>
+          <label for="status">Trạng thái</label>
+          <input id="status" type="text" class="form-control col-md-12 " name="status"></input>
+          <button type="button" class="btn btn-primary" id="addAction">Thêm hoạt động</button>
+          
+	</form>
+	
+</div>
+<script type="text/javascript">
+	$('#addAction').click(function(){
+		debugger;
+		var idMember = $('#idMember').val();
+		var nameAction = $('#nameAction').val();
+		var description = $('#moTa').val();
+		var dayStart = $('#dayStart').val();
+		var dayFinish = $('#dayFinish').val();
+		var numberMax = $('#numberMax').val();
+		var numberMin = $('#numberMin').val();
+		var deadlineForRegistration = $('#deadlineForRegistration').val();
+		var status = $('#status').val();
+		
+		$.ajax({
+			  type: 'POST',
+			  dataType: 'json/application',
+			  method: "POST",
+			  url: "/api/v1/action",
+			  contentType: "application/json",
+			  data:JSON.stringify(
+					  {
+						  nameAction:nameAction,
+						  description:description,
+				  		  dayStart:dayStart,
+				  		  dayFinish:dayFinish,
+				  		  numberMax:numberMax,
+				  		  deadlineForRegistration:deadlineForRegistration,
+				  		  status:status,
+				  		  member:{idMember:idMember}
+					  }),
+		})
+		.done(function( msg ) {
+			alert(msg);
+		});
+	});
+</script>
+</body>
+</html>

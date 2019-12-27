@@ -38,7 +38,7 @@ public class ActionServiceImpl {
 			if (action2.get().getMember().getIdMember() == member.getIdMember()) {
 				action2.get().setDayFinish(action.getDayFinish());
 				action2.get().setDayStart(action.getDayStart());
-				action2.get().setDeadlineForRegistration(action.getDayStart());
+				action2.get().setDeadlineForRegistration(action.getDeadlineForRegistration());
 				action2.get().setDescription(action.getDescription());
 				action2.get().setNameAction(action.getNameAction());
 				action2.get().setNumberMax(action.getNumberMax());
@@ -76,5 +76,10 @@ public class ActionServiceImpl {
 	
 	public List<JoinAction> orderByPoint(){
 		return joinActionRepository.loadAllBySortPointLeader();
+	}
+	
+	public void deleteAction(int id) {
+		joinActionRepository.deleteById(id);
+		
 	}
 }

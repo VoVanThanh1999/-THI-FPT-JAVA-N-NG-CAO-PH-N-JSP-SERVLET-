@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+
+</head>
+<body>
+<div th:replace="layout :: header">
+
+</div>
+<div class="page-action"> 
+	<div class="container-fluid">
+		<a th:href="@{/themhoatdong}" class="btn" style="margin-bottom: 50px;">Thêm hoạt động</a>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th scope="row">Leader</th>
+					<th scope="row">Tên hành động</th>
+					<th scope="row">Mô tả</th>
+					<th scope="row">Ngày bắt đầu</th>
+					<th scope="row">Ngày kết thức</th>
+					<th scope="row">Số lượng tối đa</th>
+					<th scope="row">Số lượng tối thiểu</th>
+					<th scope="row">Hạn chót đăng ký</th>
+					<th scope="row">Trạng thái</th>
+					<th scope="row">Lý do hủy</th>
+					<th scope="row">Xóa</th>
+					<th scope="row">Tham gia</th>
+					<th scope="row">Chi tiết</th>
+					<th scope="row">Chinh sua</th>
+				<tr>
+			</thead>
+			<tbody id="bodyTBAction">
+			
+			</tbody>
+		</table>
+	</div>
+
+</div>
+<script type="text/javascript">
+	loadData();
+
+	function loadData(){
+		$.ajax({
+			  method: "GET",
+			  url: "/api/v1/action",
+		})
+		.done(function( msg ) {
+			for(i = 0; i< msg.length;i++){
+				 $('#bodyTBAction').append(
+							`
+							<tr>
+							 	<td scope="row">`+msg[i].member.fullName+`</td> 
+								<td scope="row">`+msg[i].nameAction+`</td>
+								<td scope="row">`+msg[i].description+`</td>
+								<td scope="row">`+msg[i].dayStart+`</td>
+								<td scope="row">`+msg[i].dayFinish+`</td>
+								<td scope="row">`+msg[i].numberMax+`</td>
+								<td scope="row">`+msg[i].numberMin+`</td>
+								<td scope="row">`+msg[i].deadlineForRegistration+`</td>
+								<td scope="row">`+msg[i].status+`</td>
+								<td scope="row">`+msg[i].cancellation+`</td>
+								<th scope="row" onclick="deleteAction(`+msg[i].idAction+`)"><i class="fas fa-trash-alt"></i></th>
+								
+							<tr>
+							`		 
+						 ); 
+			}
+		});
+	} 
+	
+</script>
+<script type="text/javascript">
+
+function deleteAction(id){
+	$.ajax({
+		  method: "GET",
+		  url: "/api/v1/action",
+	})
+	.done(function( msg ) {
+		
+	});
+}
+
+</script>
+</body>
+</html>

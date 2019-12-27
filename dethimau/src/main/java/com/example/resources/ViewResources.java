@@ -2,6 +2,7 @@ package com.example.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,4 +28,18 @@ public class ViewResources {
 		andView.addObject("members", nemberService.getAll());
 		return andView;
 	}
+	@RequestMapping(value = "/quanlyhoatdong")
+	public ModelAndView quanLyHoatDong() {
+		ModelAndView andView = new ModelAndView("quanlyhoatdong");
+		andView.addObject("members", nemberService.getAll());
+		return andView;
+	}
+	
+	@RequestMapping(value = "/themhoatdong")
+	public ModelAndView themHoatDong() {
+		ModelAndView andView = new ModelAndView("themhoatdong");
+		andView.addObject("members", nemberService.getAll());
+		return andView;
+	}
+	
 }
