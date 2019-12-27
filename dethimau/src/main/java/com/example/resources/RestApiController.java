@@ -1,6 +1,7 @@
 package com.example.resources;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.model.Member;
+import com.example.repository.ActionRepository;
 import com.example.service.ActionServiceImpl;
 import com.example.service.MemberServiceImpl;
 
@@ -24,6 +26,9 @@ public class RestApiController {
 	
 	@Autowired
 	ActionServiceImpl actionServiceImpl;
+	
+	@Autowired
+	ActionRepository actionRepository;
 	
 	@RequestMapping(value = "/member",method = RequestMethod.POST)
 	public String addMember(@Valid  @RequestBody Member member) {
@@ -66,10 +71,11 @@ public class RestApiController {
 		}
 	}
 	
-	@RequestMapping(value="/aciton/{id}",method=RequestMethod.DELETE)
+	@RequestMapping(value="/action/{id}",method=RequestMethod.DELETE)
 	public String deleteAction(@PathVariable("id") int id) {
 		try {
-			actionServiceImpl.deleteAction(id);
+			Optional<com.example.model.Action> actionInput = actionRepository.findById(id);
+			actionServiceImpl.deleteAction(actionInput.get());
 			return "xoa thanh cong";
 		} catch (Exception e) {
 			// TODO: handle exception

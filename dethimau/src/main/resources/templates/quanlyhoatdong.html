@@ -74,7 +74,7 @@
 function deleteAction(id){
 	$.ajax({
 		  method: "GET",
-		  url: "/api/v1/action",
+		  url: "/api/v1/action/"+id,
 	})
 	.done(function( msg ) {
 		

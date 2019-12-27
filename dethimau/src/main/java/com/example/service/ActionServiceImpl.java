@@ -78,8 +78,5 @@ public class ActionServiceImpl {
 		return joinActionRepository.loadAllBySortPointLeader();
 	}
 	
-	public void deleteAction(int id) {
-		joinActionRepository.deleteById(id);
-		
-	}
+
 }
