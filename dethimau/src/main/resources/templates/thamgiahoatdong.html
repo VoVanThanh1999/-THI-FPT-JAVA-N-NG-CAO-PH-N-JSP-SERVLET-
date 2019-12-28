@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+
+</head>
+<body>
+<div th:replace="layout :: header">
+
+</div>
+<div class="container" style="margin-top: 150px;">
+		<p>Ban khong the tham gia hoat dong co trang thai da ket thuc</p>
+		<label for="leader">Thanh vien tham gia</label>
+			 <select id="idMember" name="leader" class="form-control col-md-12">
+	             <option th:each="member : ${members}"
+	                            th:value="${member.idMember}"
+	                            th:utext="${member.fullName}"/>
+         </select>
+         <br/>
+        <label for="leader">Hoat dong hien co</label>
+			 <select id="idAction" name="leader" class="form-control col-md-12">
+	             <option th:each="action : ${actions}"
+	                            th:value="${action.idAction}"
+	                            th:utext="${action.nameAction}"/>
+         </select>
+         <br/>
+     	<button class="btn btn-primary" id="joinAction">Tham gia</button>
+</div>
+<script type="text/javascript">
+$('#joinAction').click(function(){
+	debugger;
+	var idMember = $('#idMember').val();
+	var idAction = $('#idAction').val();
+	$.ajax({
+		  method: "GET",
+		  url: "/api/v1/joinaction/"+idAction+"/"+idMember,
+		 
+	})
+	.done(function( msg ) {
+		alert(msg);
+	});
+	
+});
+</script>
+</body>
+</html>

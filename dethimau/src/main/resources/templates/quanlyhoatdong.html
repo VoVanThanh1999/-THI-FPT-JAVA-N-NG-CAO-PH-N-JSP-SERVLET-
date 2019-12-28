@@ -9,23 +9,23 @@
 </div>
 <div class="page-action"> 
 	<div class="container-fluid">
-		<a th:href="@{/themhoatdong}" class="btn" style="margin-bottom: 50px;">Thêm hoạt động</a>
+		<a th:href="@{/themhoatdong}" class="btn" style="margin-bottom: 50px;">Them hoat dong</a>
+		<a th:href="@{/thamgiahoatdong}" class="btn" style="margin-bottom: 50px;">Tham gia hoat dong</a>
+		
 		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th scope="row">Leader</th>
-					<th scope="row">Tên hành động</th>
-					<th scope="row">Mô tả</th>
-					<th scope="row">Ngày bắt đầu</th>
-					<th scope="row">Ngày kết thức</th>
-					<th scope="row">Số lượng tối đa</th>
-					<th scope="row">Số lượng tối thiểu</th>
-					<th scope="row">Hạn chót đăng ký</th>
-					<th scope="row">Trạng thái</th>
-					<th scope="row">Lý do hủy</th>
-					<th scope="row">Xóa</th>
-					<th scope="row">Tham gia</th>
-					<th scope="row">Chi tiết</th>
+					<th scope="row">TÃªn haÌ€nh Ä‘Ã´Ì£ng</th>
+					<th scope="row">MÃ´ taÌ‰</th>
+					<th scope="row">NgaÌ€y bÄƒÌ�t Ä‘Ã¢Ì€u</th>
+					<th scope="row">NgaÌ€y kÃªÌ�t thÆ°Ì�c</th>
+					<th scope="row">SÃ´Ì� lÆ°Æ¡Ì£ng tÃ´Ì�i Ä‘a</th>
+					<th scope="row">SÃ´Ì� lÆ°Æ¡Ì£ng tÃ´Ì�i thiÃªÌ‰u</th>
+					<th scope="row">HaÌ£n choÌ�t Ä‘Äƒng kyÌ�</th>
+					<th scope="row">TraÌ£ng thaÌ�i</th>
+					<th scope="row">LyÌ� do huÌ‰y</th>
+					<th scope="row">XoÌ�a</th>
 					<th scope="row">Chinh sua</th>
 				<tr>
 			</thead>
@@ -60,7 +60,7 @@
 								<td scope="row">`+msg[i].status+`</td>
 								<td scope="row">`+msg[i].cancellation+`</td>
 								<th scope="row" onclick="deleteAction(`+msg[i].idAction+`)"><i class="fas fa-trash-alt"></i></th>
-								
+								<th scope="row" onclick="updateAction(`+msg[i].idAction+`)"><i class="fas fa-edit"></i></th>
 							<tr>
 							`		 
 						 ); 
@@ -73,14 +73,66 @@
 
 function deleteAction(id){
 	$.ajax({
+		  method: "DELETE",
+		  url: "/api/v1/action/"+id,
+	})
+	.done(function( msg ) {
+		alert(msg);
+	});
+}
+
+function updateAction(id){
+	$.ajax({
 		  method: "GET",
 		  url: "/api/v1/action/"+id,
 	})
 	.done(function( msg ) {
+		 $('#bodyTBAction').html(
+			`
+				<tr>
+					<td scope="row">`+msg.member.fullName+`</td> 
+					<td><input class="form-control nameAction" value=`+msg.nameAction+`></td>
+					<td><input class="form-control description" value=`+msg.description+`></td>
+					<td><input type="date" class="form-control dayStart" value=`+msg.dayStart+`></td>
+					<td><input type="date" class="form-control dayFinish" value=`+msg.dayFinish+`></td>
+					<td><input class="form-control numberMax" value=`+msg.numberMax+`></td>
+					<td><input class="form-control numberMin" value=`+msg.numberMin+`></td>
+					<td><input class="form-control deadlineForRegistration" value=`+msg.deadlineForRegistration+`></td>
+					<td class="status">`+msg.status+`</td>
+					<td>`+msg.cancellation+`</td>
+					<td>Xoa</td>
+					<td class="btn btn-primary" onclick="editValue(`+msg.idAction+`)">Save</td>
+				<tr>
+			`		 
+		); 
 		
 	});
 }
 
+</script>
+<script type="text/javascript">
+function editValue(id){
+	debugger;
+	var nameAction = $(".nameAction").val();
+	var description = $(".description").val();
+	var dayStart = $(".dayStart").val();
+	var dayFinish = $(".dayFinish").val();
+	var numberMax = $(".numberMax").val();
+	var numberMin = $(".numberMin").val();
+	var deadlineForRegistration = $(".deadlineForRegistration").val();
+	var status = $(".status").html();
+	$.ajax({
+	 	method: "PATCH",
+	 	dataType: 'json/application',
+		url: "/api/v1/action",
+		contentType: "application/json",
+		data:JSON.stringify({idAction:id,status:status,nameAction:nameAction,description:description,dayStart:dayStart,dayFinish:dayFinish,numberMax:numberMax,numberMin:numberMin,deadlineForRegistration:deadlineForRegistration})
+	})
+	.done(function( msg ) {
+		alert(msg);
+	});
+	
+};
 </script>
 </body>
 </html>

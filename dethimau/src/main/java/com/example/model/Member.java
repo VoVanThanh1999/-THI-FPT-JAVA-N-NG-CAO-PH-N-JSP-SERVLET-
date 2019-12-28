@@ -43,11 +43,7 @@ public class Member {
 	@Size(max = 11)
 	private String phone;
 	
-	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinTable(name = "member_action", 
-	    joinColumns = @JoinColumn(name="id_member"), 
-	     inverseJoinColumns = @JoinColumn(name = "id") 
-	)
+	@ManyToMany(mappedBy = "members")
 	private List<JoinAction> joinActions;
 
 	public int getIdMember() {

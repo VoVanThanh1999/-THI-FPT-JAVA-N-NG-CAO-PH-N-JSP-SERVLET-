@@ -31,21 +31,30 @@ public class ActionServiceImpl {
 		return null;
 	}
 	
+	
+	public Action getActionById(int id) {
+		return actionRepository.findById(id).get();
+	}
+	
+	
 	@Transactional
-	public String editAction(Action action,Member member) {
+	public String editAction(Action actionInput) {
 		try {
-			Optional<Action> action2 = actionRepository.findById(action.getIdAction());
-			if (action2.get().getMember().getIdMember() == member.getIdMember()) {
-				action2.get().setDayFinish(action.getDayFinish());
-				action2.get().setDayStart(action.getDayStart());
-				action2.get().setDeadlineForRegistration(action.getDeadlineForRegistration());
-				action2.get().setDescription(action.getDescription());
-				action2.get().setNameAction(action.getNameAction());
-				action2.get().setNumberMax(action.getNumberMax());
-				action2.get().setNumberMin(action.getNumberMin());
+			Optional<Action> actionOptinal = actionRepository.findById(actionInput.getIdAction());
+			Action action = actionOptinal.get();
+			if (action.getStatus().equals("Da ket thuc") == false) {
+				action.setDayFinish(actionInput.getDayFinish());
+				action.setDayStart(actionInput.getDayStart());
+				action.setDeadlineForRegistration(actionInput.getDeadlineForRegistration());
+				action.setDescription(actionInput.getDescription());
+				action.setNameAction(actionInput.getNameAction());
+				action.setNumberMax(actionInput.getNumberMax());
+				action.setNumberMin(actionInput.getNumberMin());
+				actionRepository.save(action);
+				return "Edit Succes";
 			}
-			actionRepository.save(action2.get());
-			return "Edit Succes";
+			return null;
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
